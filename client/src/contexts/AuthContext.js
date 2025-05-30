@@ -45,14 +45,35 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    // Demo mode credentials (fallback only)
+    // Demo mode credentials (always available as fallback)
     const demoCredentials = {
       'admin@fitnessma.ma': { password: 'admin123', role: 'admin', name: 'Admin FitnessMA' },
       'coach@fitnessma.ma': { password: 'coach123', role: 'coach', name: 'Coach Demo' },
-      'client@fitnessma.ma': { password: 'client123', role: 'client', name: 'Client Demo' }
+      'client@fitnessma.ma': { password: 'client123', role: 'client', name: 'Client Demo' },
+      'test@test.com': { password: '123456', role: 'client', name: 'Test User' }
     };
 
-    // Try backend login first (real backend)
+    // Always check demo credentials first to ensure they work
+    if (demoCredentials[email] && demoCredentials[email].password === password) {
+      const demoUser = {
+        id: 1,
+        email: email,
+        firstName: demoCredentials[email].name.split(' ')[0],
+        lastName: demoCredentials[email].name.split(' ')[1] || '',
+        role: demoCredentials[email].role
+      };
+      
+      const demoToken = 'demo_token_' + Date.now();
+      
+      setToken(demoToken);
+      setUser(demoUser);
+      localStorage.setItem('token', demoToken);
+      localStorage.setItem('demoMode', 'true');
+      
+      return { success: true, user: demoUser };
+    }
+
+    // Try backend login for real users
     try {
       const response = await axios.post(`${config.API_URL}/api/auth/login`, { email, password });
       const { token: newToken, user: userData } = response.data;
@@ -64,31 +85,11 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true, user: userData };
     } catch (error) {
-      console.error('Backend login failed, trying demo mode:', error);
+      console.error('Backend login failed:', error);
       
-      // Fallback to demo credentials if backend fails
-      if (demoCredentials[email] && demoCredentials[email].password === password) {
-        const demoUser = {
-          id: 1,
-          email: email,
-          firstName: demoCredentials[email].name.split(' ')[0],
-          lastName: demoCredentials[email].name.split(' ')[1] || '',
-          role: demoCredentials[email].role
-        };
-        
-        const demoToken = 'demo_token_' + Date.now();
-        
-        setToken(demoToken);
-        setUser(demoUser);
-        localStorage.setItem('token', demoToken);
-        localStorage.setItem('demoMode', 'true');
-        
-        return { success: true, user: demoUser };
-      }
-
       return { 
         success: false, 
-        error: 'Identifiants incorrects. Vérifiez votre email et mot de passe.' 
+        error: 'Identifiants incorrects. Utilisez admin@fitnessma.ma / admin123 pour la démo.' 
       };
     }
   };
