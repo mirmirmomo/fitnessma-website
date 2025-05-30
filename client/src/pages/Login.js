@@ -130,6 +130,24 @@ const Login = () => {
             </button>
           </div>
         </form>
+        
+        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <h3 className="text-sm font-medium text-blue-800 mb-2">Comptes de démonstration (Mode démo) :</h3>
+          <div className="space-y-2 text-sm text-blue-700">
+            <div>
+              <strong>Admin :</strong> admin@fitnessma.ma / admin123
+            </div>
+            <div>
+              <strong>Coach :</strong> coach@fitnessma.ma / coach123
+            </div>
+            <div>
+              <strong>Client :</strong> client@fitnessma.ma / client123
+            </div>
+          </div>
+          <p className="text-xs text-blue-600 mt-2">
+            💡 Ces comptes fonctionnent sans backend. Déployez le backend pour créer de vrais comptes.
+          </p>
+        </div>
       </div>
     </div>
   );

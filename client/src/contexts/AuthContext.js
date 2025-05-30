@@ -45,6 +45,34 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
+    // Demo mode credentials (works without backend)
+    const demoCredentials = {
+      'admin@fitnessma.ma': { password: 'admin123', role: 'admin', name: 'Admin FitnessMA' },
+      'coach@fitnessma.ma': { password: 'coach123', role: 'coach', name: 'Coach Demo' },
+      'client@fitnessma.ma': { password: 'client123', role: 'client', name: 'Client Demo' }
+    };
+
+    // Check demo credentials first
+    if (demoCredentials[email] && demoCredentials[email].password === password) {
+      const demoUser = {
+        id: 1,
+        email: email,
+        firstName: demoCredentials[email].name.split(' ')[0],
+        lastName: demoCredentials[email].name.split(' ')[1] || '',
+        role: demoCredentials[email].role
+      };
+      
+      const demoToken = 'demo_token_' + Date.now();
+      
+      setToken(demoToken);
+      setUser(demoUser);
+      localStorage.setItem('token', demoToken);
+      localStorage.setItem('demoMode', 'true');
+      
+      return { success: true, user: demoUser };
+    }
+
+    // Try backend login if demo credentials don't match
     try {
       const response = await axios.post(`${config.API_URL}/api/auth/login`, { email, password });
       const { token: newToken, user: userData } = response.data;
@@ -52,13 +80,14 @@ export const AuthProvider = ({ children }) => {
       setToken(newToken);
       setUser(userData);
       localStorage.setItem('token', newToken);
+      localStorage.setItem('demoMode', 'false');
       
       return { success: true, user: userData };
     } catch (error) {
       console.error('Login error:', error);
       return { 
         success: false, 
-        error: error.response?.data?.error || 'Login failed' 
+        error: 'Identifiants incorrects. Utilisez les comptes de démonstration ou déployez le backend.' 
       };
     }
   };
