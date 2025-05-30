@@ -15,31 +15,31 @@ const Home = () => {
         <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-16 h-16 rounded-xl bg-white bg-opacity-20 flex items-center justify-center mr-4">
-                <Dumbbell size={40} className="text-white" />
+            <div className="flex flex-col sm:flex-row items-center justify-center mb-6">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-white bg-opacity-20 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
+                <Dumbbell size={32} className="text-white sm:w-10 sm:h-10" />
               </div>
               <div>
-                <h1 className="text-5xl md:text-6xl font-bold">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
                   <span className="text-white">Fitness</span>
                   <span className="text-yellow-300">MA</span>
                 </h1>
               </div>
             </div>
-            <p className="text-xl md:text-2xl mb-8 text-gray-100 max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-100 max-w-4xl mx-auto px-4">
               {t('home.hero.subtitle')}
             </p>
-            <div className="space-x-4">
+            <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center">
               {isAuthenticated ? (
-                <Link to="/coaches" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 text-lg fitness-shadow">
+                <Link to="/coaches" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg fitness-shadow">
                   {t('home.hero.browseCoaches')}
                 </Link>
               ) : (
                 <>
-                  <Link to="/register" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 text-lg fitness-shadow">
+                  <Link to="/register" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg fitness-shadow">
                     {t('home.hero.startJourney')}
                   </Link>
-                  <Link to="/login" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300 text-lg">
+                  <Link to="/login" className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300 text-base sm:text-lg">
                     {t('home.hero.signIn')}
                   </Link>
                 </>
@@ -53,13 +53,13 @@ const Home = () => {
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t('home.features.title')}</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">{t('home.features.title')}</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               {t('home.features.subtitle')}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center p-8 bg-white rounded-xl fitness-shadow hover:shadow-lg transition-all duration-300">
               <div className="w-16 h-16 rounded-full gradient-primary flex items-center justify-center mx-auto mb-6 pulse-primary">
                 <Calendar className="text-white" size={32} />
@@ -99,26 +99,26 @@ const Home = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('home.stats.title')}</h2>
           </div>
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="p-6">
-              <div className="text-5xl font-bold text-primary-600 mb-2">1,200+</div>
-              <div className="text-gray-600 font-medium">{t('home.stats.members')}</div>
-              <div className="w-12 h-1 bg-primary-600 mx-auto mt-3 rounded-full"></div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
+            <div className="p-4 sm:p-6">
+              <div className="text-3xl sm:text-5xl font-bold text-primary-600 mb-2">1,200+</div>
+              <div className="text-gray-600 font-medium text-sm sm:text-base">{t('home.stats.members')}</div>
+              <div className="w-8 sm:w-12 h-1 bg-primary-600 mx-auto mt-3 rounded-full"></div>
             </div>
-            <div className="p-6">
-              <div className="text-5xl font-bold text-secondary-600 mb-2">25+</div>
-              <div className="text-gray-600 font-medium">{t('home.stats.coaches')}</div>
-              <div className="w-12 h-1 bg-secondary-600 mx-auto mt-3 rounded-full"></div>
+            <div className="p-4 sm:p-6">
+              <div className="text-3xl sm:text-5xl font-bold text-secondary-600 mb-2">25+</div>
+              <div className="text-gray-600 font-medium text-sm sm:text-base">{t('home.stats.coaches')}</div>
+              <div className="w-8 sm:w-12 h-1 bg-secondary-600 mx-auto mt-3 rounded-full"></div>
             </div>
-            <div className="p-6">
-              <div className="text-5xl font-bold text-accent-600 mb-2">5,000+</div>
-              <div className="text-gray-600 font-medium">{t('home.stats.sessions')}</div>
-              <div className="w-12 h-1 bg-accent-600 mx-auto mt-3 rounded-full"></div>
+            <div className="p-4 sm:p-6">
+              <div className="text-3xl sm:text-5xl font-bold text-accent-600 mb-2">5,000+</div>
+              <div className="text-gray-600 font-medium text-sm sm:text-base">{t('home.stats.sessions')}</div>
+              <div className="w-8 sm:w-12 h-1 bg-accent-600 mx-auto mt-3 rounded-full"></div>
             </div>
-            <div className="p-6">
-              <div className="text-5xl font-bold text-primary-600 mb-2">98.5%</div>
-              <div className="text-gray-600 font-medium">{t('home.stats.satisfaction')}</div>
-              <div className="w-12 h-1 bg-primary-600 mx-auto mt-3 rounded-full"></div>
+            <div className="p-4 sm:p-6">
+              <div className="text-3xl sm:text-5xl font-bold text-primary-600 mb-2">98.5%</div>
+              <div className="text-gray-600 font-medium text-sm sm:text-base">{t('home.stats.satisfaction')}</div>
+              <div className="w-8 sm:w-12 h-1 bg-primary-600 mx-auto mt-3 rounded-full"></div>
             </div>
           </div>
         </div>
@@ -128,13 +128,13 @@ const Home = () => {
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t('home.services.title')}</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">{t('home.services.title')}</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               {t('home.services.subtitle')}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="bg-white p-8 rounded-xl fitness-shadow">
               <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center mb-4">
                 <Dumbbell className="text-white" size={24} />
@@ -192,11 +192,11 @@ const Home = () => {
             {t('home.cta.subtitle')}
           </p>
           {!isAuthenticated && (
-            <div className="space-x-4">
-              <Link to="/register" className="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg fitness-shadow">
+            <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center">
+              <Link to="/register" className="bg-white text-primary-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-base sm:text-lg fitness-shadow">
                 {t('home.cta.start')}
               </Link>
-              <Link to="/coaches" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300 text-lg">
+              <Link to="/coaches" className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300 text-base sm:text-lg">
                 {t('home.cta.meetCoaches')}
               </Link>
             </div>
