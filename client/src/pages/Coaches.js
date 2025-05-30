@@ -9,7 +9,6 @@ import config from '../config';
 const Coaches = () => {
   const [coaches, setCoaches] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const { isAuthenticated, isClient } = useAuth();
   const { t } = useLanguage();
 
@@ -62,7 +61,7 @@ const Coaches = () => {
     } finally {
       setLoading(false);
     }
-  }, [t]);
+  }, []);
 
   useEffect(() => {
     fetchCoaches();
@@ -74,19 +73,6 @@ const Coaches = () => {
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">{t('coaches.loadingCoaches')}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center py-12">
-          <p className="text-red-600">{error}</p>
-          <button onClick={fetchCoaches} className="mt-4 btn-primary">
-            {t('common.tryAgain')}
-          </button>
         </div>
       </div>
     );
