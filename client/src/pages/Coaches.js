@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Star, Clock, DollarSign, Calendar } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import config from '../config';
 
 const Coaches = () => {
   const [coaches, setCoaches] = useState([]);
@@ -14,7 +15,7 @@ const Coaches = () => {
 
   const fetchCoaches = useCallback(async () => {
     try {
-      const response = await axios.get('/api/coaches');
+      const response = await axios.get(`${config.API_URL}/api/coaches`);
       setCoaches(response.data);
     } catch (error) {
       setError(t('coaches.failedToLoad'));

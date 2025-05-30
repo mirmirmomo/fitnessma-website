@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Calendar, Clock, MessageSquare, X, Plus } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import config from '../config';
 
 const MyAppointments = () => {
   const { t } = useLanguage();
@@ -17,7 +18,7 @@ const MyAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get('/api/appointments/my');
+      const response = await axios.get(`${config.API_URL}/api/appointments/my`);
       setAppointments(response.data);
     } catch (error) {
       setError('Failed to load appointments');
@@ -34,7 +35,7 @@ const MyAppointments = () => {
 
     setCancellingId(appointmentId);
     try {
-      await axios.delete(`/api/appointments/${appointmentId}`);
+      await axios.delete(`${config.API_URL}/api/appointments/${appointmentId}`);
       await fetchAppointments(); // Refresh the list
     } catch (error) {
       console.error('Error cancelling appointment:', error);

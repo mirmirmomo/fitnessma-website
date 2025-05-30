@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Users, UserPlus, Eye, EyeOff, Calendar, Star, Trash2, Edit, Plus, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
+import config from '../config';
 
 const AdminDashboard = () => {
   const { t } = useLanguage();
@@ -48,9 +50,9 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [usersResponse, appointmentsResponse, coachesResponse] = await Promise.all([
-        axios.get('/api/admin/users'),
-        axios.get('/api/admin/appointments'),
-        axios.get('/api/admin/coaches')
+        axios.get(`${config.API_URL}/api/admin/users`),
+        axios.get(`${config.API_URL}/api/admin/appointments`),
+        axios.get(`${config.API_URL}/api/admin/coaches`)
       ]);
       setUsers(usersResponse.data);
       setAppointments(appointmentsResponse.data);
@@ -67,7 +69,7 @@ const AdminDashboard = () => {
     setActionLoading(userId);
     try {
       const newStatus = currentStatus === 'blocked' ? 'active' : 'blocked';
-      await axios.patch(`/api/admin/users/${userId}/status`, {
+      await axios.patch(`${config.API_URL}/api/admin/users/${userId}/status`, {
         status: newStatus
       });
       await fetchData();
@@ -86,7 +88,7 @@ const AdminDashboard = () => {
 
     setActionLoading(userId);
     try {
-      await axios.delete(`/api/admin/users/${userId}`);
+      await axios.delete(`${config.API_URL}/api/admin/users/${userId}`);
       await fetchData();
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -101,7 +103,7 @@ const AdminDashboard = () => {
     setFormSubmitting(true);
     
     try {
-      await axios.post('/api/admin/users', {
+      await axios.post(`${config.API_URL}/api/admin/users`, {
         email: userForm.email,
         password: userForm.password,
         first_name: userForm.firstName,
@@ -134,10 +136,10 @@ const AdminDashboard = () => {
     try {
       if (editingCoach) {
         // Update existing coach
-        await axios.put(`/api/admin/coaches/${editingCoach.id}`, coachForm);
+        await axios.put(`${config.API_URL}/api/admin/coaches/${editingCoach.id}`, coachForm);
       } else {
         // Create new coach
-        await axios.post('/api/admin/coaches', coachForm);
+        await axios.post(`${config.API_URL}/api/admin/coaches`, coachForm);
       }
       
       resetCoachForm();
@@ -194,7 +196,7 @@ const AdminDashboard = () => {
 
     setActionLoading(coachId);
     try {
-      await axios.delete(`/api/admin/coaches/${coachId}`);
+      await axios.delete(`${config.API_URL}/api/admin/coaches/${coachId}`);
       await fetchData();
     } catch (error) {
       console.error('Error deleting coach:', error);

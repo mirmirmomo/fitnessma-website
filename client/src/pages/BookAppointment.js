@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Calendar, Clock, User, ArrowLeft, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import config from '../config';
 
 const BookAppointment = () => {
   const { coachId } = useParams();
@@ -32,7 +33,7 @@ const BookAppointment = () => {
 
   const fetchCoaches = async () => {
     try {
-      const response = await axios.get('/api/coaches');
+      const response = await axios.get(`${config.API_URL}/api/coaches`);
       setCoaches(response.data);
     } catch (error) {
       setError('Failed to load coaches');
@@ -91,7 +92,7 @@ const BookAppointment = () => {
         notes: notes.trim()
       };
 
-      await axios.post('/api/appointments', appointmentData);
+      await axios.post(`${config.API_URL}/api/appointments`, appointmentData);
       setSuccess(true);
       
       setTimeout(() => {
