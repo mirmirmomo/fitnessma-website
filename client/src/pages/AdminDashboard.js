@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Users, UserPlus, Eye, EyeOff, Calendar, Star, Trash2, Edit, Plus, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useAuth } from '../contexts/AuthContext';
 import config from '../config';
 
 const AdminDashboard = () => {
